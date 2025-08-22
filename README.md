@@ -23,7 +23,7 @@ npx @modelcontextprotocol/inspector node build/src/server.js
 ### 4. Use with Claude
 You can connect this MCP server to Claude Desktop and interact with FPL data using natural language.
 
-![Screenshot of Claude Desktop using FPL MCP server](docs/claude-screenshot-placeholder.png)
+![Screenshot of Claude Desktop using FPL MCP server](docs/claude-screenshot.png)
 
 ---
 
