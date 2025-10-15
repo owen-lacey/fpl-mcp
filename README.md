@@ -55,6 +55,12 @@ Use the Model Inspector to explore available tools:
 npx @modelcontextprotocol/inspector npx fpl-mcp
 ```
 
+## Usage Example
+
+You can connect this MCP server to Claude Desktop and interact with FPL data using natural language.
+
+![Screenshot of Claude Desktop using FPL MCP server](docs/claude-screenshot.png)
+
 ---
 
 ## Endpoints Supported
