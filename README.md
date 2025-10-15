@@ -2,51 +2,64 @@
 
 A Model Context Protocol (MCP) server for the Fantasy Premier League API.
 
-## Quick Start
+## Installation
 
-### 1. Install dependencies
+### Install from NPM (Recommended)
+
 ```sh
-npm install
+npm install -g fpl-mcp
 ```
 
-### 2. Build the project
+### Install from Source
+
 ```sh
+git clone https://github.com/owen-lacey/fpl-mcp.git
+cd fpl-mcp
+npm install
 npm run build
 ```
 
-### 3. Inspect the MCP tools
-Use the Model Inspector to explore available tools:
-```sh
-npx @modelcontextprotocol/inspector node build/src/server.js
+## Quick Start
+
+### Using with Claude Desktop
+
+If installed via NPM, add this to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "fpl-api": {
+      "command": "npx",
+      "args": ["fpl-mcp"]
+    }
+  }
+}
 ```
 
-### 4. Use with Claude
-You can connect this MCP server to Claude Desktop and interact with FPL data using natural language.
+If installed from source, use:
 
-![Screenshot of Claude Desktop using FPL MCP server](docs/claude-screenshot.png)
+```json
+{
+  "mcpServers": {
+    "fpl-api": {
+      "command": "node",
+      "args": ["/path/to/fpl-mcp/build/src/server.js"]
+    }
+  }
+}
+```
+
+### Inspect the MCP tools
+Use the Model Inspector to explore available tools:
+```sh
+npx @modelcontextprotocol/inspector npx fpl-mcp
+```
 
 ---
 
 ## Endpoints Supported
 See `docs/fpl-api-cheatsheet.md` for all FPL API endpoints exposed as MCP tools.
 
----
-
-
-## Claude desktop
-In your `claude_desktop_config.json`:
-
-```json
-  ...
-  "mcpServers": {
-    "fpl-api": {
-      "command": "node",
-      "args": [
-        "/path/to/fpl-mcp/build/src/server.js"
-      ]
-    }
-  }
-```
 
 ---
 
