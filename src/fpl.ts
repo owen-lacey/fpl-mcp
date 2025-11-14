@@ -50,6 +50,51 @@ export async function getBootstrapStatic(): Promise<FplApiObject> {
   return res.json() as Promise<FplApiObject>;
 }
 
+export async function getPlayerData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    elements: data.elements,
+  };
+}
+
+export async function getTeamData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    teams: data.teams,
+  };
+}
+
+export async function getGameweekData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    events: data.events,
+  };
+}
+
+export async function getGameRulesData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    game_settings: data.game_settings,
+    scoring: data.scoring,
+    element_types: data.element_types,
+  };
+}
+
+export async function getChipData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    chips: data.chips,
+  };
+}
+
+export async function getSeasonOverviewData(): Promise<Partial<FplApiObject>> {
+  const data = await getBootstrapStatic();
+  return {
+    phases: data.phases,
+    total_players: data.total_players,
+  };
+}
+
 
 export async function getFixtures(): Promise<any> {
   const res = await fetch('https://fantasy.premierleague.com/api/fixtures/');
