@@ -1,6 +1,6 @@
 {
   "name": "fpl-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Model Context Protocol (MCP) server for the Fantasy Premier League API",
   "type": "module",
   "main": "build/src/server.js",

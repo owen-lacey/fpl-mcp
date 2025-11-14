@@ -30,7 +30,7 @@ If installed via NPM, add this to your `claude_desktop_config.json`:
   "mcpServers": {
     "fpl-api": {
       "command": "npx",
-      "args": ["fpl-mcp"]
+      "args": ["fpl-mcp@latest"]
     }
   }
 }
