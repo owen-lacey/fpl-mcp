@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import {
-  getBootstrapStatic,
   getFixtures,
   getElementSummary,
   getEntry,
@@ -13,7 +12,13 @@ import {
   getLeagueStandings,
   getLeagueStandingsPage,
   getRegions,
-  getBestClassicPrivateLeagues
+  getBestClassicPrivateLeagues,
+  getPlayerData,
+  getTeamData,
+  getGameweekData,
+  getGameRulesData,
+  getChipData,
+  getSeasonOverviewData
 } from './fpl.js';
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -179,37 +184,97 @@ server.registerTool("getBestClassicPrivateLeagues", {
   };
 });
 // add a tool to call the getBootstrapStatic function
-server.registerTool("getBootstrapStatic", {
-  title: "Get Bootstrap Static",
-  description: "Fetch static bootstrap data",
+server.registerTool("getPlayerData", {
+  title: "Get Player Data",
+  description: "Fetch all player data",
   inputSchema: {}
 }, async () => {
-  //need to be selective about what data to return here as it can easily exceed limits
-  const data: FplApiObject = await getBootstrapStatic();
-  const now = new Date();
-  var returnObject: Partial<FplApiObject> = {
-    events: data.events.filter(ev => {
-      if (!ev.deadline_time) return false;
-      return new Date(ev.deadline_time) < now;
-    }),
-    teams: data.teams,
-    element_types: data.element_types,
-    elements: data.elements.map(el => ({
-      id: el.id,
-      web_name: el.web_name,
-      element_type: el.element_type,
-      team: el.team,
-      code: el.code,
-      total_points: el.total_points,
-      selected_by_percent: el.selected_by_percent,
-    })),
-    chips: data.chips,
-  };
+  const data = await getPlayerData();
   return {
     content: [
       {
         type: "text",
-        text: JSON.stringify(returnObject)
+        text: JSON.stringify(data)
+      }
+    ]
+  };
+});
+
+server.registerTool("getTeamData", {
+  title: "Get Team Data",
+  description: "Fetch all team data",
+  inputSchema: {}
+}, async () => {
+  const data = await getTeamData();
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(data)
+      }
+    ]
+  };
+});
+
+server.registerTool("getGameweekData", {
+  title: "Get Gameweek Data",
+  description: "Fetch all gameweek data",
+  inputSchema: {}
+}, async () => {
+  const data = await getGameweekData();
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(data)
+      }
+    ]
+  };
+});
+
+server.registerTool("getGameRulesData", {
+  title: "Get Game Rules Data",
+  description: "Fetch all game rules data",
+  inputSchema: {}
+}, async () => {
+  const data = await getGameRulesData();
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(data)
+      }
+    ]
+  };
+});
+
+server.registerTool("getChipData", {
+  title: "Get Chip Data",
+  description: "Fetch all chip data",
+  inputSchema: {}
+}, async () => {
+  const data = await getChipData();
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(data)
+      }
+    ]
+  };
+});
+
+server.registerTool("getSeasonOverviewData", {
+  title: "Get Season Overview Data",
+  description: "Fetch all season overview data",
+  inputSchema: {}
+}, async () => {
+  const data = await getSeasonOverviewData();
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(data)
       }
     ]
   };
