@@ -16,9 +16,7 @@ import {
   getPlayerData,
   getTeamData,
   getGameweekData,
-  getGameRulesData,
   getChipData,
-  getSeasonOverviewData
 } from './fpl.js';
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -232,44 +230,12 @@ server.registerTool("getGameweekData", {
   };
 });
 
-server.registerTool("getGameRulesData", {
-  title: "Get Game Rules Data",
-  description: "Fetch all game rules data",
-  inputSchema: {}
-}, async () => {
-  const data = await getGameRulesData();
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(data)
-      }
-    ]
-  };
-});
-
 server.registerTool("getChipData", {
   title: "Get Chip Data",
   description: "Fetch all chip data",
   inputSchema: {}
 }, async () => {
   const data = await getChipData();
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(data)
-      }
-    ]
-  };
-});
-
-server.registerTool("getSeasonOverviewData", {
-  title: "Get Season Overview Data",
-  description: "Fetch all season overview data",
-  inputSchema: {}
-}, async () => {
-  const data = await getSeasonOverviewData();
   return {
     content: [
       {
