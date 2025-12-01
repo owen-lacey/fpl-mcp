@@ -49,10 +49,10 @@ server.registerTool("getFixturesForGameweek", {
 // Tool for live results of a gameweek
 server.registerTool("getLiveEvent", {
   title: "Get Live Event",
-  description: "Fetch live results for a given gameweek",
-  inputSchema: { gw: z.number() }
-}, async ({ gw }) => {
-  const data = await getLiveEvent(gw);
+  description: "Fetch focused live stats for a gameweek. Optionally filter to specific players by providing elementIds array.",
+  inputSchema: { gw: z.number(), elementIds: z.array(z.number()).optional() }
+}, async ({ gw, elementIds }) => {
+  const data = await getLiveEvent(gw, elementIds);
   return {
     content: [
       {

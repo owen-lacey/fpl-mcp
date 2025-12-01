@@ -3,9 +3,53 @@ export async function getFixturesForGameweek(gw: number): Promise<any> {
   return res.json();
 }
 
-export async function getLiveEvent(gw: number): Promise<any> {
+async function fetchLiveEventRaw(gw: number): Promise<any> {
   const res = await fetch(`https://fantasy.premierleague.com/api/event/${gw}/live/`);
   return res.json();
+}
+
+export async function getLiveEvent(gw: number, elementIds?: number[]): Promise<any> {
+  const data = await fetchLiveEventRaw(gw);
+
+  // Filter elements if specific IDs requested
+  let elements = data.elements || [];
+  if (elementIds && elementIds.length > 0) {
+    elements = elements.filter((element: any) => elementIds.includes(element.id));
+  }
+
+  // Return only essential stats for each player
+  const focusedElements = elements.map((element: any) => ({
+    id: element.id,
+    stats: {
+      minutes: element.stats.minutes,
+      goals_scored: element.stats.goals_scored,
+      assists: element.stats.assists,
+      clean_sheets: element.stats.clean_sheets,
+      goals_conceded: element.stats.goals_conceded,
+      own_goals: element.stats.own_goals,
+      penalties_saved: element.stats.penalties_saved,
+      penalties_missed: element.stats.penalties_missed,
+      yellow_cards: element.stats.yellow_cards,
+      red_cards: element.stats.red_cards,
+      saves: element.stats.saves,
+      bonus: element.stats.bonus,
+      bps: element.stats.bps,
+      influence: element.stats.influence,
+      creativity: element.stats.creativity,
+      threat: element.stats.threat,
+      ict_index: element.stats.ict_index,
+      starts: element.stats.starts,
+      expected_goals: element.stats.expected_goals,
+      expected_assists: element.stats.expected_assists,
+      expected_goal_involvements: element.stats.expected_goal_involvements,
+      expected_goals_conceded: element.stats.expected_goals_conceded,
+      total_points: element.stats.total_points,
+    }
+  }));
+
+  return {
+    elements: focusedElements
+  };
 }
 
 export async function getEntryHistory(entryId: number): Promise<any> {
