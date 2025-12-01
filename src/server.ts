@@ -6,7 +6,6 @@ import {
   getEntry,
   getFixturesForGameweek,
   getLiveEvent,
-  getLiveElementStats,
   getEntryHistory,
   getEntryTransfers,
   getEntryPicks,
@@ -50,27 +49,10 @@ server.registerTool("getFixturesForGameweek", {
 // Tool for live results of a gameweek
 server.registerTool("getLiveEvent", {
   title: "Get Live Event",
-  description: "Fetch live results for a given gameweek (returns all 600+ players, very large)",
-  inputSchema: { gw: z.number() }
-}, async ({ gw }) => {
-  const data = await getLiveEvent(gw);
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(data)
-      }
-    ]
-  };
-});
-
-// Tool for live element stats (focused version)
-server.registerTool("getLiveElementStats", {
-  title: "Get Live Element Stats",
-  description: "Fetch live stats for specific players in a gameweek. Provide elementIds array to filter specific players, or omit to get all players.",
+  description: "Fetch focused live stats for a gameweek. Optionally filter to specific players by providing elementIds array.",
   inputSchema: { gw: z.number(), elementIds: z.array(z.number()).optional() }
 }, async ({ gw, elementIds }) => {
-  const data = await getLiveElementStats(gw, elementIds);
+  const data = await getLiveEvent(gw, elementIds);
   return {
     content: [
       {
