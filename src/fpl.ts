@@ -8,6 +8,24 @@ export async function getLiveEvent(gw: number): Promise<any> {
   return res.json();
 }
 
+export async function getLiveElementStats(gw: number, elementIds?: number[]): Promise<any> {
+  const data = await getLiveEvent(gw);
+
+  if (!elementIds || elementIds.length === 0) {
+    // If no specific elements requested, return all
+    return data;
+  }
+
+  // Filter to only return data for requested element IDs
+  const filteredElements = data.elements.filter((element: any) =>
+    elementIds.includes(element.id)
+  );
+
+  return {
+    elements: filteredElements
+  };
+}
+
 export async function getEntryHistory(entryId: number): Promise<any> {
   const res = await fetch(`https://fantasy.premierleague.com/api/entry/${entryId}/history/`);
   return res.json();
