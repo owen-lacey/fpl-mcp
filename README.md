@@ -81,6 +81,32 @@ You can ask natural language questions about any supported endpoint. The LLM wil
 
 ---
 
+## Development
+
+### Publishing to npm
+
+This repository includes a GitHub Actions workflow that automatically publishes to npm when the version number in `package.json` changes.
+
+#### Setup
+
+1. Create an npm access token:
+   - Log in to [npmjs.com](https://www.npmjs.com/)
+   - Go to Access Tokens in your account settings
+   - Generate a new "Automation" token
+
+2. Add the token to GitHub Secrets:
+   - Go to your repository Settings > Secrets and variables > Actions
+   - Create a new secret named `NPM_TOKEN`
+   - Paste your npm token as the value
+
+3. Publish a new version:
+   - Update the version in `package.json` (e.g., `1.0.1` → `1.0.2`)
+   - Commit and push to the `main` branch
+   - The workflow will automatically build and publish to npm
+   - A git tag (e.g., `v1.0.2`) will be created automatically
+
+---
+
 ## License
 MIT
 
